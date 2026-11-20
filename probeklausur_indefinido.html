@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Probeklausur Q1 · Indefinido</title>
+<style>
+:root{--bg:#f5f5f7;--card:#fff;--text:#1d1d1f;--muted:#6e6e73;--line:#d2d2d7;--blue:#0071e3;--chip:#f0f0f3;
+--green:#1f9d47;--green-bg:#e8f6ec;--red:#e3342f;--red-bg:#fdecec;--orange:#d97706;--orange-bg:#fef5e6;--shadow:0 4px 24px rgba(0,0,0,.06)}
+@media (prefers-color-scheme:dark){:root{--bg:#000;--card:#1c1c1e;--text:#f5f5f7;--muted:#98989d;--line:#38383a;--chip:#2c2c2e;
+--green-bg:#11301b;--red-bg:#3a1515;--orange-bg:#3a2a0c;--shadow:none}}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","Helvetica Neue",Helvetica,Arial,sans-serif;background:var(--bg);color:var(--text);-webkit-font-smoothing:antialiased;padding-bottom:110px}
+header{position:sticky;top:0;z-index:20;backdrop-filter:saturate(180%) blur(20px);-webkit-backdrop-filter:saturate(180%) blur(20px);background:color-mix(in srgb,var(--bg) 75%,transparent);border-bottom:1px solid var(--line)}
+.bar{max-width:900px;margin:0 auto;padding:12px 22px;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.logo{font-weight:600;font-size:17px}.logo span{color:var(--muted);font-weight:400}
+.seg{display:inline-flex;background:var(--chip);border-radius:10px;padding:3px}
+.seg button{border:none;background:none;padding:7px 14px;border-radius:8px;font-size:14px;font-family:inherit;color:var(--text);cursor:pointer;white-space:nowrap}
+.seg button.on{background:var(--card);box-shadow:0 1px 4px rgba(0,0,0,.12);font-weight:600}
+.seg button .dot{display:inline-block;width:7px;height:7px;border-radius:50%;margin-left:6px;vertical-align:middle;background:transparent}
+main{max-width:900px;margin:0 auto;padding:36px 22px}
+h1{font-size:40px;font-weight:700;letter-spacing:-.025em;line-height:1.1}
+.lead{font-size:18px;color:var(--muted);margin-top:8px;line-height:1.45}
+.card{background:var(--card);border-radius:24px;padding:32px;box-shadow:var(--shadow);margin-top:28px}
+.kicker{font-size:13px;font-weight:600;color:var(--blue);text-transform:uppercase;letter-spacing:.06em}
+h2{font-size:26px;letter-spacing:-.015em;margin:6px 0 4px}
+.instr{color:var(--muted);font-size:15px}
+.text{font-size:19px;line-height:2.25;margin-top:22px}
+.text p{margin-bottom:14px}
+.gap{display:inline-flex;align-items:baseline;gap:4px;white-space:nowrap}
+.gap input{font:inherit;font-size:18px;border:none;border-bottom:2px solid var(--line);background:var(--chip);border-radius:8px 8px 2px 2px;
+  padding:2px 8px;color:var(--text);outline:none;text-align:center;transition:all .2s;min-width:90px}
+.gap input:focus{border-bottom-color:var(--blue);background:color-mix(in srgb,var(--blue) 8%,var(--chip))}
+.gap .hint{font-size:14px;color:var(--muted)}
+.gap .n{font-size:11px;font-weight:700;color:#fff;border-radius:9px;min-width:18px;height:18px;display:none;align-items:center;justify-content:center;padding:0 5px;position:relative;top:-8px;cursor:pointer}
+.gap.ok input{background:var(--green-bg);border-bottom-color:var(--green)}
+.gap.bad input{background:var(--red-bg);border-bottom-color:var(--red)}
+.gap.acc input{background:var(--orange-bg);border-bottom-color:var(--orange)}
+.gap.bad .n{display:inline-flex;background:var(--red)} .gap.acc .n{display:inline-flex;background:var(--orange)}
+.actions{display:flex;gap:12px;margin-top:22px;flex-wrap:wrap;align-items:center}
+.btn{background:var(--blue);color:#fff;border:none;border-radius:980px;padding:12px 26px;font-size:16px;font-family:inherit;cursor:pointer;font-weight:500}
+.btn.ghost{background:var(--chip);color:var(--text)}
+.score{margin-left:auto;font-size:15px;color:var(--muted)}
+.score b{font-size:22px;color:var(--text)}
+.fbwrap{margin-top:26px}
+.fbhead{font-size:15px;font-weight:600;color:var(--muted);margin-bottom:12px}
+.fb{border-radius:16px;padding:16px 18px;margin-bottom:12px;background:var(--red-bg);border-left:4px solid var(--red);transition:box-shadow .3s}
+.fb.acc{background:var(--orange-bg);border-left-color:var(--orange)}
+.fb.flash{box-shadow:0 0 0 3px var(--blue)}
+.fb .top{display:flex;gap:10px;align-items:baseline;flex-wrap:wrap;font-size:16px}
+.fb .num{font-weight:700;color:var(--red)} .fb.acc .num{color:var(--orange)}
+.fb s{color:var(--muted)} .fb .right{font-weight:700}
+.fb .what{margin-top:8px;font-size:15px;line-height:1.5}
+.fb .why{margin-top:6px;font-size:14px;line-height:1.5;color:var(--muted)}
+.fb .why b{color:var(--text);font-weight:600}
+.allgood{border-radius:16px;padding:18px;background:var(--green-bg);color:var(--green);font-weight:600}
+/* task 4 */
+.qa{padding:18px 0;border-bottom:1px solid var(--line)}
+.qa:last-child{border-bottom:none}
+.qa .q{font-size:19px;font-weight:600}
+.qa .cue{font-size:15px;color:var(--muted);margin-top:2px}
+.qa input{width:100%;margin-top:10px;font:inherit;font-size:17px;padding:12px 14px;border-radius:12px;border:1.5px solid var(--line);background:var(--bg);color:var(--text);outline:none}
+.qa input:focus{border-color:var(--blue)}
+.qa.ok input{border-color:var(--green);background:var(--green-bg)}
+.qa.bad input{border-color:var(--red);background:var(--red-bg)}
+.qa.acc input{border-color:var(--orange);background:var(--orange-bg)}
+.qa .fb{margin-top:10px;margin-bottom:0}
+.qa .okmsg{margin-top:8px;color:var(--green);font-weight:600;font-size:15px}
+.keys{position:fixed;bottom:18px;left:50%;transform:translateX(-50%);display:flex;gap:6px;padding:8px;border-radius:16px;z-index:30;
+  background:color-mix(in srgb,var(--card) 80%,transparent);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);box-shadow:0 8px 30px rgba(0,0,0,.15);border:1px solid var(--line)}
+.keys button{width:42px;height:40px;border-radius:10px;border:none;background:var(--chip);color:var(--text);font-size:18px;cursor:pointer;font-family:inherit}
+.keys button:hover{background:var(--line)}
+.hidden{display:none!important}
+@media (max-width:700px){h1{font-size:30px}.card{padding:22px 18px}.text{font-size:17px}.seg button{padding:7px 9px;font-size:13px}}
+</style>
+</head>
+<body>
+<header><div class="bar">
+  <div class="logo">Probeklausur Q1 <span>· Indefinido</span></div>
+  <div class="seg" id="tabs"></div>
+</div></header>
+<main>
+  <h1>Füll die Lücken.</h1>
+  <p class="lead">Setze die Verben in die richtige Form. Nach „Prüfen“ siehst du zu jedem Fehler, was falsch war, was richtig ist – und warum. Du kannst korrigieren und erneut prüfen.</p>
+  <div id="view"></div>
+</main>
+<div class="keys" id="keys"></div>
+
+<script>
+/* ---------- Verbformen ---------- */
+const PERS=["yo","tú","él/ella","nosotros","vosotros","ellos/ellas"];
+const PERS_L=["yo (1. Person Singular)","tú (2. Person Singular)","él/ella (3. Person Singular)","nosotros (1. Person Plural)","vosotros (2. Person Plural)","ellos/ellas (3. Person Plural)"];
+const RP=["me","te","se","nos","os","se"];
+function reg(inf){
+  const refl=inf.endsWith("se"), base=refl?inf.slice(0,-2):inf, st=base.slice(0,-2), t=base.slice(-2);
+  const ind=t==="ar"?["é","aste","ó","amos","asteis","aron"]:["í","iste","ió","imos","isteis","ieron"];
+  const pre=t==="ar"?["o","as","a","amos","áis","an"]:t==="er"?["o","es","e","emos","éis","en"]:["o","es","e","imos","ís","en"];
+  return {ind:ind.map(e=>st+e),pre:pre.map(e=>st+e),refl};
+}
+function addRefl(arr){return arr.map((f,i)=>RP[i]+" "+f);}
+const VB={};
+["viajar","descubrir","fundar","terminar","matar","pasar","desayunar","estudiar","encantar","comer","nacer","escribir","vivir","recibir","explorar","levantarse","quedarse","mudarse"].forEach(v=>VB[v]=reg(v));
+VB.nacer.pre[0]="nazco";
+VB.construir={ind:["construí","construiste","construyó","construimos","construisteis","construyeron"],pre:["construyo","construyes","construye","construimos","construís","construyen"]};
+VB.llegar={ind:["llegué","llegaste","llegó","llegamos","llegasteis","llegaron"],pre:["llego","llegas","llega","llegamos","llegáis","llegan"]};
+VB.empezar={ind:["empecé","empezaste","empezó","empezamos","empezasteis","empezaron"],pre:["empiezo","empiezas","empieza","empezamos","empezáis","empiezan"]};
+VB.ser={ind:["fui","fuiste","fue","fuimos","fuisteis","fueron"],pre:["soy","eres","es","somos","sois","son"]};
+VB.ir={ind:["fui","fuiste","fue","fuimos","fuisteis","fueron"],pre:["voy","vas","va","vamos","vais","van"]};
+VB.salir={ind:["salí","saliste","salió","salimos","salisteis","salieron"],pre:["salgo","sales","sale","salimos","salís","salen"]};
+VB.ver={ind:["vi","viste","vio","vimos","visteis","vieron"],pre:["veo","ves","ve","vemos","veis","ven"]};
+VB.tener={ind:["tuve","tuviste","tuvo","tuvimos","tuvisteis","tuvieron"],pre:["tengo","tienes","tiene","tenemos","tenéis","tienen"]};
+VB.acostarse={ind:["acosté","acostaste","acostó","acostamos","acostasteis","acostaron"],pre:["acuesto","acuestas","acuesta","acostamos","acostáis","acuestan"],refl:true};
+VB.dormirse={ind:["dormí","dormiste","durmió","dormimos","dormisteis","durmieron"],pre:["duermo","duermes","duerme","dormimos","dormís","duermen"],refl:true};
+VB.irse={ind:VB.ir.ind.slice(),pre:VB.ir.pre.slice(),refl:true};
+VB.hacer={ind:["hice","hiciste","hizo","hicimos","hicisteis","hicieron"],pre:["hago","haces","hace","hacemos","hacéis","hacen"]};
+for(const v in VB){const o=VB[v];o.indB=o.ind.slice();o.preB=o.pre.slice();if(o.refl){o.ind=addRefl(o.ind);o.pre=addRefl(o.pre);}}
+
+const RULE={
+ viajar:"<b>viajar</b> ist ein regelmäßiges -ar-Verb. Endungen im Indefinido: -é, -aste, -ó, -amos, -asteis, -aron.",
+ fundar:"<b>fundar</b> ist regelmäßig (-ar): -é, -aste, -ó, -amos, -asteis, -aron.",
+ terminar:"<b>terminar</b> ist regelmäßig (-ar): -é, -aste, -ó, -amos, -asteis, -aron.",
+ pasar:"<b>pasar</b> ist regelmäßig (-ar): -é, -aste, -ó, -amos, -asteis, -aron.",
+ desayunar:"<b>desayunar</b> ist regelmäßig (-ar): desayuné, desayunaste, desayunó …",
+ estudiar:"<b>estudiar</b> ist regelmäßig (-ar): estudié, estudiaste, estudió, estudiamos …",
+ descubrir:"<b>descubrir</b> ist ein regelmäßiges -ir-Verb: -í, -iste, -ió, -imos, -isteis, -ieron.",
+ comer:"<b>comer</b> ist ein regelmäßiges -er-Verb. -er und -ir haben im Indefinido dieselben Endungen: -í, -iste, -ió, -imos, -isteis, -ieron.",
+ nacer:"<b>nacer</b> ist im Indefinido regelmäßig: nací, naciste, nació …",
+ escribir:"<b>escribir</b> ist regelmäßig (-ir): escribí, escribiste, escribió …",
+ vivir:"<b>vivir</b> ist regelmäßig (-ir): viví, viviste, vivió …",
+ recibir:"<b>recibir</b> ist regelmäßig (-ir): recibí, recibiste, recibió …",
+ construir:"<b>construir</b>: Bei Verben auf -uir wird in der 3. Person das <b>i zu y</b>: construyó, construyeron.",
+ llegar:"<b>llegar</b>: Nur in der yo-Form wird g → gu (llegué), damit die Aussprache gleich bleibt. Alle anderen Formen sind regelmäßig.",
+ empezar:"<b>empezar</b>: Nur in der yo-Form wird z → c (empecé). Der Stammwechsel e→ie (empiezo) gilt nur im Presente, nicht im Indefinido!",
+ matar:"<b>matar</b> ist regelmäßig (-ar).",
+ ser:"<b>ser</b> ist komplett unregelmäßig: fui, fuiste, fue, fuimos, fuisteis, fueron – <b>ohne Akzent</b>. (ir hat dieselben Formen.)",
+ ir:"<b>ir</b> ist komplett unregelmäßig: fui, fuiste, fue, fuimos, fuisteis, fueron – <b>ohne Akzent</b>. (ser hat dieselben Formen.)",
+ irse:"<b>irse</b> = Reflexivpronomen + Form von ir: me fui, te fuiste, se fue, nos fuimos, os fuisteis, se fueron.",
+ salir:"<b>salir</b> ist im Indefinido regelmäßig wie ein -ir-Verb: salí, saliste, salió, salimos, salisteis, salieron.",
+ levantarse:"<b>levantarse</b> ist reflexiv: passendes Pronomen (me, te, se, nos, os, se) + regelmäßige -ar-Form.",
+ quedarse:"<b>quedarse</b> ist reflexiv: Pronomen (me, te, se, nos, os, se) + regelmäßige -ar-Form.",
+ mudarse:"<b>mudarse</b> ist reflexiv: Pronomen (me, te, se, nos, os, se) + regelmäßige -ar-Form.",
+ acostarse:"<b>acostarse</b> ist reflexiv. Der Stammwechsel o→ue (me acuesto) gilt <b>nur im Presente</b> – im Indefinido bleibt das o: me acosté, nos acostamos.",
+ dormirse:"<b>dormirse</b> ist reflexiv. Im Indefinido wird o→u <b>nur in der 3. Person</b> (se durmió, se durmieron); nos dormimos bleibt mit o.",
+ ver:"<b>ver</b>: Die einsilbigen Formen <b>vi</b> und <b>vio</b> haben keinen Akzent. vimos, visteis, vieron.",
+ encantar:"<b>encantar</b> funktioniert wie gustar: Subjekt ist das, was gefällt. Wem es gefällt, zeigt das Pronomen (me, te, le, nos …).",
+ tener:"<b>tener</b> ist unregelmäßig mit dem Stamm <b>tuv-</b>: tuve, tuviste, tuvo, tuvimos, tuvisteis, tuvieron – ohne Akzent."
+};
+
+/* ---------- Aufgaben ---------- */
+// g(verb, person, hint, why, opts)
+const g=(v,p,hint,why,o={})=>({v,p,hint,why,...o});
+const T=[
+{title:"Lückentext (regelmäßige Verben)",type:"gap",
+ text:["En 1492, Cristóbal Colón y sus compañeros § a América, donde § un nuevo continente. Entre los siglos XIV y XVII, los incas § muchas ciudades impresionantes en la región que hoy conocemos como Perú. En 1532, los españoles § a esa zona y Francisco Pizarro § la conquista del Imperio Inca. Cerca de la playa, § una ciudad que hoy es la capital del Perú, Lima.",
+       "En 1533, los conquistadores § con el Imperio Inca tras § a Atahualpa, quien § su último líder. Después de muchos años, en 1821, Perú § a ser una República independiente de España."],
+ gaps:[
+  g("viajar",5,"viajar","Subjekt ist „Cristóbal Colón y sus compañeros“ (mehrere Personen) → <b>ellos</b>. „En 1492“ ist ein abgeschlossener Zeitpunkt in der Vergangenheit → Indefinido."),
+  g("descubrir",5,"descubrir","Subjekt sind weiterhin Colón und seine Begleiter → <b>ellos</b>."),
+  g("construir",5,"construir","Subjekt „los incas“ → <b>ellos</b>."),
+  g("llegar",5,"llegar","Subjekt „los españoles“ → <b>ellos</b>. „En 1532“ → abgeschlossene Handlung → Indefinido."),
+  g("empezar",2,"empezar","Subjekt „Francisco Pizarro“ = eine Person → <b>él</b>."),
+  g("fundar",3,"fundar, nosotros","Die Person ist vorgegeben: <b>nosotros</b>."),
+  g("terminar",5,"terminar","Subjekt „los conquistadores“ → <b>ellos</b>."),
+  g("matar",-1,"matar, ellos","Nach der Präposition <b>tras</b> (= nach) steht im Spanischen immer der <b>Infinitiv</b> – genau wie bei „después de + Infinitiv“. Deshalb: tras <b>matar</b>.",{ans:"matar"}),
+  g("ser",2,"ser","„quien“ bezieht sich auf Atahualpa = eine Person → <b>él</b>."),
+  g("pasar",2,"pasar","Subjekt „Perú“ (ein Land) → 3. Person Singular (<b>él</b>). „en 1821“ → Indefinido.")
+ ]},
+{title:"Lückentext (unregelmäßige Verben)",type:"gap",
+ text:["El sábado, mis amigos § al barrio Miraflores para tomar algo y bailar. ¡§ genial, verdad? Por la mañana, yo § temprano y § en una cafetería cerca de mi casa. Después § en el parque para relajarnos.",
+       "Por la tarde, mi familia y yo § al cine y § una película de aventuras que nos § muchísimo. Más tarde, § ceviche en un restaurante muy famoso de la ciudad.",
+       "El domingo, mi mejor amiga § a mi casa y juntas § para un examen. Por la noche, tú § visitar a tu abuela, ¿verdad? Finalmente, nosotros § temprano y § rápido porque estábamos muy cansados."],
+ gaps:[
+  g("salir",5,"salir","Subjekt „mis amigos“ → <b>ellos</b>. „El sábado“ → abgeschlossene Handlung → Indefinido."),
+  g("ser",1,"ser, tú","Die Person ist vorgegeben: <b>tú</b>. Am Satzanfang groß: ¡Fuiste …!"),
+  g("levantarse",0,"levantarse","Subjekt „yo“ → <b>yo</b>-Form mit Pronomen <b>me</b>."),
+  g("desayunar",0,"desayunar","Subjekt ist immer noch „yo“ (… yo me levanté y …) → <b>yo</b>."),
+  g("quedarse",3,"quedarse, nosotros","Person vorgegeben: <b>nosotros</b> → Pronomen <b>nos</b> + -amos."),
+  g("ir",3,"ir","„mi familia y yo“ = ich + andere = <b>nosotros</b>."),
+  g("ver",3,"ver","Subjekt ist weiterhin „mi familia y yo“ → <b>nosotros</b>."),
+  g("encantar",2,"encantar","Subjekt von encantar ist „una película de aventuras“ (Singular) → 3. Person Singular. „nos“ steht schon im Text und zeigt nur, <i>wem</i> der Film gefallen hat.",{alt:["nos encantó"]}),
+  g("comer",5,"comer, ellos","Person vorgegeben: <b>ellos</b>."),
+  g("ir",2,"ir","Subjekt „mi mejor amiga“ = eine Person → <b>ella</b>."),
+  g("estudiar",3,"estudiar","„juntas“ = meine Freundin und ich → <b>nosotras</b>."),
+  g("tener",1,"tener que","Subjekt „tú“ → <b>tú</b>-Form. tener que + Infinitiv = müssen."),
+  g("acostarse",3,"acostarse","Subjekt „nosotros“ → Pronomen <b>nos</b> + -amos."),
+  g("dormirse",3,"dormirse","Subjekt ist weiterhin „nosotros“ → <b>nos</b> + nosotros-Form.")
+ ]},
+{title:"Lückentext",type:"gap",
+ text:["Mario Vargas Llosa y su familia § a Perú en 1947 después de haber vivido varios años en Bolivia. Él § a trabajar como periodista a los 16 años y más tarde § Literatura en Lima.",
+       "Su madre § a Bolivia tras el divorcio de sus padres, y Mario § con ella y la familia materna durante su infancia. Mario Vargas Llosa § el 28 de marzo de 1936 en Arequipa y § uno de los escritores más importantes de Perú.",
+       "A lo largo de su carrera, § muchas novelas famosas y § en países europeos como España y Francia. En 2010, § el Premio Nobel de Literatura, y hoy en día § también la nacionalidad española."],
+ gaps:[
+  g("mudarse",5,"mudarse","„Mario Vargas Llosa y su familia“ = mehrere Personen → <b>ellos</b> → Pronomen <b>se</b> + -aron."),
+  g("empezar",2,"empezar","Subjekt „Él“ → <b>él</b>."),
+  g("estudiar",2,"estudiar","Subjekt ist weiterhin „él“ → 3. Person Singular."),
+  g("irse",2,"irse","Subjekt „Su madre“ → <b>ella</b> → se + 3. Person Singular von ir."),
+  g("quedarse",2,"quedarse","Subjekt „Mario“ → <b>él</b> → se + -ó."),
+  g("nacer",2,"nacer","Subjekt „Mario Vargas Llosa“ → <b>él</b>. Ein Geburtsdatum ist ein abgeschlossenes Ereignis → Indefinido."),
+  g("ser",2,"ser","Subjekt ist weiterhin Mario → <b>él</b>."),
+  g("escribir",2,"escribir, él","Person vorgegeben: <b>él</b>."),
+  g("vivir",2,"vivir","Subjekt ist weiterhin „él“ → 3. Person Singular."),
+  g("recibir",2,"recibir, él","Person vorgegeben: <b>él</b>. „En 2010“ → Indefinido."),
+  g("tener",2,"tener","Achtung: <b>„hoy en día“</b> (heutzutage) beschreibt die Gegenwart. Deshalb steht hier <b>Presente</b>, nicht Indefinido! Subjekt: él.",{tense:"pre"})
+ ]},
+{title:"Beantworte die Frage in einem vollständigen Satz.",type:"qa",
+ qs:[
+  {q:"¿Cuándo salisteis de casa?",cue:"el sábado por la mañana",verb:"salir",ok:["salimos"],echo:["salisteis"],need:[["sabado"],["manana"]],needTxt:["el sábado","por la mañana"],
+   model:"Salimos (de casa) el sábado por la mañana.",why:"Die Frage ist an <b>vosotros</b> (ihr) gerichtet. In der Antwort sprichst du für dich und die anderen → <b>nosotros</b>: salimos."},
+  {q:"¿Dónde comieron la paella?",cue:"en la playa",verb:"comer",ok:["comieron","comimos"],echo:[],need:[["playa"]],needTxt:["en la playa"],
+   model:"Comieron la paella en la playa. (oder: Comimos la paella en la playa.)",why:"<b>comieron</b> kann sich auf ellos (sie) oder ustedes (Sie/ihr) beziehen. Bei „sie“ bleibt die Form gleich: comieron. Wenn ihr gemeint seid: comimos."},
+  {q:"¿Cómo llegaste al Valle Sagrado?",cue:"en bicicleta",verb:"llegar",ok:["llegué"],echo:["llegaste"],need:[["bicicleta"]],needTxt:["en bicicleta"],
+   model:"Llegué al Valle Sagrado en bicicleta.",why:"Die Frage ist an <b>tú</b> gerichtet → du antwortest in der <b>yo</b>-Form. Achtung Rechtschreibung: llegar → lle<b>gu</b>é (g→gu vor é)."},
+  {q:"¿Qué hicieron en Cusco?",cue:"explorar / las ruinas incas",verb:"explorar",ok:["exploramos","exploraron"],echo:["hicieron","hicimos"],need:[["ruina"],["inca"]],needTxt:["las ruinas","incas"],
+   model:"Exploramos las ruinas incas en Cusco. (oder: Exploraron …)",why:"Die Frage nutzt <b>hacer</b> nur allgemein („Was habt ihr gemacht?“). In der Antwort steht das konkrete Verb <b>explorar</b> im Indefinido: exploramos (ustedes → nosotros) bzw. exploraron (ellos)."},
+  {q:"¿Cómo viajó Ana a Arequipa?",cue:"en autobús",verb:"viajar",ok:["viajó"],echo:[],need:[["autobus"]],needTxt:["en autobús"],
+   model:"Ana viajó a Arequipa en autobús.",why:"Gefragt wird nach <b>Ana</b> = 3. Person Singular. Hier bleibt die Verbform wie in der Frage: viajó (mit Akzent!)."},
+  {q:"¿Adónde fuisteis el último día?",cue:"Plaza de Armas",verb:"ir",ok:["fuimos"],echo:["fuisteis"],need:[["plaza de armas"]],needTxt:["a la Plaza de Armas"],
+   model:"Fuimos a la Plaza de Armas el último día.",why:"<b>vosotros</b>-Frage → <b>nosotros</b>-Antwort: fuimos. Nach „adónde“ antwortest du mit <b>a</b> + Ort: a la Plaza de Armas."}
+ ]}
+];
+
+/* ---------- Hilfsfunktionen ---------- */
+const norm=s=>s.toLowerCase().replace(/[¡!¿?.,;:()]/g," ").replace(/\s+/g," ").trim();
+const bare=s=>norm(s).normalize("NFD").replace(/[̀-ͯ]/g,"");
+const esc=s=>s.replace(/&/g,"&amp;").replace(/</g,"&lt;");
+
+function answer(gp){if(gp.ans)return gp.ans;const o=VB[gp.v];return gp.tense==="pre"?o.pre[gp.p]:o.ind[gp.p];}
+
+function diagnose(gp,raw){
+  const inp=norm(raw), b=bare(raw), sol=answer(gp), o=VB[gp.v];
+  const accepted=[sol,...(gp.alt||[])];
+  if(!inp) return {s:"bad",what:"Die Lücke ist leer."};
+  if(accepted.some(a=>norm(a)===inp)) return {s:"ok"};
+  if(accepted.some(a=>bare(a)===b)){
+    const pres=o.pre.findIndex(f=>bare(f)===b&&norm(f)===inp);
+    let w="Fast richtig – nur der <b>Akzent</b> fehlt oder ist falsch gesetzt.";
+    if(pres>=0&&gp.tense!=="pre") w+=` Ohne Akzent ist „${esc(inp)}“ sogar eine andere Form: <b>Presente</b> (${PERS[pres]}). Der Akzent macht hier den Unterschied zwischen Gegenwart und Vergangenheit!`;
+    else if(/^(fui|fue|vi|vio)$/.test(bare(sol).replace(/^(me|te|se|nos|os) /,""))) w="Bei <b>"+sol+"</b> steht <b>kein Akzent</b> – einsilbige Formen wie fui, fue, vi, vio werden ohne Akzent geschrieben.";
+    else if(!/[áéíóú]/.test(sol)) w="Bei <b>"+sol+"</b> steht <b>kein Akzent</b>. Im Indefinido haben nur die yo- und él/ella-Formen regelmäßiger Verben einen Akzent (-é, -ó, -í, -ió).";
+    else w+=" Im Indefinido tragen die yo- und él/ella-Formen regelmäßiger Verben den Akzent auf der Endung (-é, -ó, -í, -ió).";
+    return {s:"acc",what:w};
+  }
+  // Sonderfälle
+  if(gp.v==="matar"&&gp.ans){
+    if(o.ind.some(f=>bare(f)===b)||o.pre.some(f=>bare(f)===b)) return {s:"bad",what:`Du hast „${esc(inp)}“ konjugiert. Das ist hier ein typischer Fehler: Die Angabe „ellos“ führt in die Irre – nach <b>tras</b> darf kein konjugiertes Verb stehen.`};
+    return {s:"bad",what:"Nach <b>tras</b> steht hier keine konjugierte Form, sondern der Infinitiv."};
+  }
+  if(gp.v==="encantar"){
+    if(["encantamos","nos encantamos"].includes(b)) return {s:"bad",what:"Du hast „wir“ als Subjekt genommen. Bei <b>encantar</b> ist aber nicht die Person das Subjekt, sondern das, was gefällt: <i>la película</i> (Singular) → <b>encantó</b>. „nos“ = uns (wem es gefallen hat)."};
+    if(["encantaron","nos encantaron"].includes(b)) return {s:"bad",what:"„encantaron“ wäre richtig, wenn <i>mehrere</i> Dinge gefallen hätten. Hier ist es <i>una película</i> (Singular) → <b>encantó</b>."};
+  }
+  if(gp.tense==="pre"&&o.ind.some(f=>bare(f)===b)) return {s:"bad",what:`„${esc(inp)}“ ist Indefinido. Der Satzteil „<b>hoy en día</b>“ beschreibt aber einen heutigen Zustand – dafür braucht man das <b>Presente</b>.`};
+  if(gp.v==="acostarse"&&b.includes("acuest")) return {s:"bad",what:"Du hast den Stammwechsel <b>o → ue</b> benutzt. Den gibt es bei acostarse nur im Presente (me acuesto). Im Indefinido bleibt das <b>o</b>."};
+  if(gp.v==="dormirse"&&b.includes("durmimos")) return {s:"bad",what:"Der Wechsel <b>o → u</b> passiert bei dormir im Indefinido nur in der 3. Person (se durmió, se durmieron). In der nosotros-Form bleibt das o: nos <b>dormimos</b>."};
+  if(gp.v==="empezar"&&b.includes("empiez")) return {s:"bad",what:"Der Stammwechsel <b>e → ie</b> (empieza) gilt nur im Presente. Im Indefinido bleibt der Stamm <b>empez-</b>."};
+  if(gp.p===1&&b===bare(sol)+"s") return {s:"bad",what:"Die tú-Form im Indefinido endet <b>nie auf -s</b>: richtig ist –<b>iste</b>/–<b>aste</b> ohne s. „"+esc(inp)+"“ ist ein sehr häufiger Fehler."};
+  // Reflexivpronomen
+  if(o.refl){
+    const noPron=b.replace(/^(me|te|se|nos|os) /,"");
+    const hadPron=noPron!==b, pron=hadPron?b.split(" ")[0]:null;
+    if(!hadPron&&bare(o.indB[gp.p])===b) return {s:"bad",what:`Die Verbform stimmt, aber das <b>Reflexivpronomen fehlt</b>. ${gp.v} ist reflexiv – zur Person ${PERS[gp.p]} gehört <b>${RP[gp.p]}</b>.`};
+    if(hadPron&&bare(o.indB[gp.p])===noPron&&pron!==RP[gp.p]) return {s:"bad",what:`Die Verbform stimmt, aber das <b>Pronomen</b> passt nicht: „${pron}“ gehört nicht zu ${PERS[gp.p]}. Richtig ist <b>${RP[gp.p]}</b>.`};
+    const ip=o.indB.findIndex(f=>bare(f)===noPron);
+    if(ip>=0&&ip!==gp.p&&gp.p>=0) return {s:"bad",what:`„${esc(inp)}“ ist die Form für <b>${PERS_L[ip]}</b>. Gebraucht wird aber <b>${PERS_L[gp.p]}</b> – Verbform und Pronomen müssen beide zur Person passen.`};
+  }
+  // falsche Person
+  const ip=o.ind.findIndex(f=>bare(f)===b);
+  if(ip>=0&&gp.p>=0) return {s:"bad",what:`Die Zeit stimmt (Indefinido), aber „${esc(inp)}“ ist die Form für <b>${PERS_L[ip]}</b>. Gesucht ist <b>${PERS_L[gp.p]}</b>.${(gp.v==="ser"||gp.v==="ir")?"":""}`};
+  // Presente
+  const pp=o.pre.findIndex(f=>bare(f)===b);
+  if(pp>=0&&gp.tense!=="pre") return {s:"bad",what:`„${esc(inp)}“ ist <b>Presente</b> (${PERS[pp]}). Die Handlung ist aber abgeschlossen und liegt in der Vergangenheit → <b>Indefinido</b>.`};
+  if(gp.tense==="pre"&&pp>=0) return {s:"bad",what:`„${esc(inp)}“ ist zwar Presente, aber für <b>${PERS_L[pp]}</b>. Gesucht ist <b>${PERS_L[gp.p]}</b>.`};
+  // Imperfecto
+  if(/(aba|abas|abamos|abais|aban|ia|ias|iamos|iais|ian|era|eras|eramos|erais|eran|iba|ibas|ibamos|ibais|iban)$/.test(b)&&gp.tense!=="pre") return {s:"bad",what:`„${esc(inp)}“ sieht nach <b>Imperfecto</b> aus. Hier geht es aber um eine einmalige, abgeschlossene Handlung → <b>Indefinido</b>.`};
+  // Infinitiv
+  const inf=gp.v.replace(/se$/,"");
+  if(b===bare(gp.v)||b===bare(inf)) return {s:"bad",what:"Du hast den <b>Infinitiv</b> stehen lassen. Das Verb muss hier konjugiert werden – passend zu Person und Zeit."};
+  // regelmäßig gebildet bei unregelmäßigem Verb
+  if(["ser","ir","tener","irse"].includes(gp.v)) return {s:"bad",what:`„${esc(inp)}“ gibt es so nicht. <b>${gp.v}</b> ist im Indefinido unregelmäßig – die Formen muss man auswendig lernen.`};
+  if(gp.v==="construir"&&b.includes("construi")&&(gp.p===2||gp.p===5)) return {s:"bad",what:"In der 3. Person wird bei construir das <b>i zu y</b> (construyó, construyeron), weil das i zwischen zwei Vokalen steht."};
+  if(gp.v==="llegar"&&b==="llege") return {s:"bad",what:"Bei llegar wird in der yo-Form <b>g → gu</b>, sonst würde man „lle-che“ sprechen: lle<b>gu</b>é."};
+  if(gp.v==="empezar"&&b==="empeze") return {s:"bad",what:"Bei empezar wird in der yo-Form <b>z → c</b>: empe<b>c</b>é (vor e schreibt man im Spanischen c statt z)."};
+  return {s:"bad",what:`„${esc(inp)}“ ist nicht die richtige Form. Achte auf Person, Zeit und Endung.`};
+}
+
+/* ---------- Rendering ---------- */
+let cur=0;const state=T.map(()=>({vals:{},res:null}));
+function tabs(){
+  $("tabs").innerHTML=T.map((t,i)=>{
+    const r=state[i].res;let c="transparent";
+    if(r){c=r.ok===r.n?"var(--green)":r.ok/r.n>=.5?"var(--orange)":"var(--red)";}
+    return `<button class="${i===cur?"on":""}" data-i="${i}">Aufgabe ${i+1}<span class="dot" style="background:${c}"></span></button>`;}).join("");
+}
+function $(id){return document.getElementById(id);}
+$("tabs").onclick=e=>{const b=e.target.closest("button");if(!b)return;saveVals();cur=+b.dataset.i;render();window.scrollTo({top:0,behavior:"smooth"});};
+
+function saveVals(){document.querySelectorAll("#view input[data-k]").forEach(i=>state[cur].vals[i.dataset.k]=i.value);}
+
+function render(){
+  tabs();const t=T[cur],st=state[cur];
+  let h=`<div class="card"><div class="kicker">${cur+1}. Aufgabe</div><h2>${t.title}</h2>`;
+  if(t.type==="gap"){
+    h+=`<div class="instr">Setze die Verben im Indefinido ein. Reflexivpronomen (me, te, se …) mitschreiben.</div><div class="text">`;
+    let k=0;
+    t.text.forEach(par=>{
+      h+="<p>"+par.split("§").map((seg,j,arr)=>{
+        if(j===arr.length-1)return esc(seg);
+        const gp=t.gaps[k],w=Math.max(answer(gp).length+2,8);
+        const s=`${esc(seg)}<span class="gap" id="g${k}"><input data-k="${k}" style="width:${w}ch" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" value="${esc(st.vals[k]||"")}"><span class="hint">(${gp.hint})</span><span class="n" data-k="${k}">${k+1}</span></span>`;
+        k++;return s;}).join("")+"</p>";
+    });
+    h+=`</div>`;
+  }else{
+    h+=`<div class="instr">Antworte im Indefinido und in einem vollständigen Satz. Nutze die Angabe hinter dem Pfeil.</div>`;
+    t.qs.forEach((q,k)=>{h+=`<div class="qa" id="g${k}"><div class="q">${q.q}</div><div class="cue">→ ${q.cue}</div>
+      <input data-k="${k}" placeholder="Deine Antwort …" autocomplete="off" autocorrect="off" spellcheck="false" value="${esc(st.vals[k]||"")}"><div class="qfb"></div></div>`;});
+  }
+  h+=`<div class="actions"><button class="btn" id="chk">Prüfen</button><button class="btn ghost" id="sol">Lösungen zeigen</button><button class="btn ghost" id="rst">Zurücksetzen</button><div class="score" id="score"></div></div>
+      <div class="fbwrap" id="fbw"></div></div>`;
+  $("view").innerHTML=h;
+  $("chk").onclick=check;$("sol").onclick=showSol;$("rst").onclick=()=>{state[cur]={vals:{},res:null};render();};
+  document.querySelectorAll("#view .n").forEach(n=>n.onclick=()=>{const f=$("f"+n.dataset.k);if(f){f.scrollIntoView({behavior:"smooth",block:"center"});f.classList.add("flash");setTimeout(()=>f.classList.remove("flash"),1200);}});
+  if(st.res)check();
+}
+
+function check(){
+  saveVals();const t=T[cur],st=state[cur];let ok=0,n=0,fbs=[];
+  if(t.type==="gap"){
+    t.gaps.forEach((gp,k)=>{
+      n++;const d=diagnose(gp,st.vals[k]||"");const el=$("g"+k);el.className="gap "+d.s;
+      if(d.s==="ok"){ok++;return;}
+      fbs.push(`<div class="fb ${d.s}" id="f${k}"><div class="top"><span class="num">Lücke ${k+1}</span>
+        ${norm(st.vals[k]||"")?`<s>${esc(st.vals[k])}</s> →`:""} <span class="right">${answer(gp)}</span></div>
+        <div class="what">${d.what}</div><div class="why"><b>Warum?</b> ${gp.why} ${RULE[gp.v]&&!gp.ans?"<br>"+RULE[gp.v]:""}</div></div>`);
+    });
+    $("fbw").innerHTML=fbs.length?`<div class="fbhead">Deine Fehler – tippe auf die Nummer an der Lücke, um hierher zu springen</div>${fbs.join("")}`:`<div class="allgood">¡Perfecto! Alle Lücken sind richtig. 🎉</div>`;
+  }else{
+    t.qs.forEach((q,k)=>{n++;const d=checkQA(q,st.vals[k]||"");const el=$("g"+k);el.className="qa "+d.s;
+      if(d.s==="ok"){ok++;el.querySelector(".qfb").innerHTML=`<div class="okmsg">✓ Richtig!${d.note?" "+d.note:""}</div>`;return;}
+      el.querySelector(".qfb").innerHTML=`<div class="fb ${d.s}"><div class="top"><span class="right">Musterlösung: ${q.model}</span></div>
+        <div class="what">${d.what}</div><div class="why"><b>Warum?</b> ${q.why}</div></div>`;});
+    $("fbw").innerHTML=ok===n?`<div class="allgood">¡Perfecto! Alle Antworten sind richtig. 🎉</div>`:"";
+  }
+  st.res={ok,n};$("score").innerHTML=`<b>${ok}</b> / ${n} richtig`;tabs();
+}
+
+function checkQA(q,raw){
+  const inp=norm(raw),b=bare(raw);
+  if(!inp)return{s:"bad",what:"Noch keine Antwort."};
+  const words=inp.split(" ");const issues=[];let s="ok";
+  const has=f=>(" "+inp+" ").includes(" "+norm(f)+" "), hasB=f=>(" "+b+" ").includes(" "+bare(f)+" ");
+  // Verb
+  if(q.ok.some(has)){}
+  else if(q.ok.some(hasB)){s="acc";issues.push(`Die Verbform stimmt fast – aber der <b>Akzent</b> fehlt oder ist falsch: richtig ist <b>${q.ok[0]}</b>.${q.ok[0].endsWith("ó")?" Ohne Akzent wäre „"+bare(q.ok[0])+"“ Presente (ich …)!":""}`);}
+  else{
+    s="bad";const echo=q.echo.find(hasB);
+    const o=VB[q.verb];const ip=o.ind.findIndex(f=>hasB(f));const pp=o.pre.findIndex(f=>hasB(f));
+    if(echo&&q.verb!=="explorar")issues.push(`Du hast die Verbform aus der Frage übernommen („${echo}“). In der Antwort sprichst du aber aus <b>deiner</b> Perspektive – die Person ändert sich.`);
+    else if(q.verb==="explorar"&&echo)issues.push(`Du hast <b>hacer</b> aus der Frage übernommen. Benutze das vorgegebene Verb <b>explorar</b>.`);
+    else if(ip>=0)issues.push(`„${o.ind[ip]}“ ist die Form für <b>${PERS_L[ip]}</b> – das passt nicht zur Frage.`);
+    else if(pp>=0)issues.push(`„${o.pre[pp]}“ ist <b>Presente</b>. Gefragt ist nach der Vergangenheit → <b>Indefinido</b>.`);
+    else if(hasB(q.verb))issues.push(`Du hast den <b>Infinitiv</b> „${q.verb}“ benutzt – das Verb muss konjugiert werden.`);
+    else issues.push(`Ich finde keine passende Verbform. Erwartet wird <b>${q.ok.join("</b> oder <b>")}</b>.`);
+  }
+  // Inhalt
+  const miss=q.need.map((alts,i)=>alts.some(a=>b.includes(a))?null:q.needTxt[i]).filter(Boolean);
+  if(miss.length){if(s==="ok")s="bad";issues.push(`Es fehlt noch die Angabe: <b>${miss.join(", ")}</b>.`);}
+  if(q.verb==="ir"&&!/ a (la )?plaza/.test(" "+b)&&!miss.length){if(s==="ok")s="acc";issues.push("Bei „ir“ brauchst du die Präposition <b>a</b>: fuimos <b>a la</b> Plaza de Armas.");}
+  if(words.length<4){if(s==="ok")s="acc";issues.push("Das ist noch kein <b>vollständiger Satz</b>. Antworte mit Verb und Ergänzung, z. B. wie in der Musterlösung.");}
+  return {s,what:issues.join("<br>")};
+}
+
+function showSol(){
+  const t=T[cur],st=state[cur];
+  if(t.type==="gap")t.gaps.forEach((gp,k)=>{const a=answer(gp);st.vals[k]=(cur===1&&k===1)?a[0].toUpperCase()+a.slice(1):a;});
+  else t.qs.forEach((q,k)=>st.vals[k]=q.model.replace(/ \(oder.*$/,""));
+  st.res=null;render();
+}
+
+/* Akzent-Tasten */
+let last=null;
+document.addEventListener("focusin",e=>{if(e.target.tagName==="INPUT")last=e.target;});
+$("keys").innerHTML=["á","é","í","ó","ú","ñ","¿","¡"].map(k=>`<button tabindex="-1">${k}</button>`).join("");
+$("keys").onmousedown=e=>e.preventDefault();
+$("keys").onclick=e=>{const b=e.target.closest("button");if(!b||!last)return;const s=last.selectionStart,en=last.selectionEnd;
+  last.value=last.value.slice(0,s)+b.textContent+last.value.slice(en);last.focus();last.setSelectionRange(s+1,s+1);};
+/* Enter springt zur nächsten Lücke */
+document.addEventListener("keydown",e=>{if(e.key!=="Enter"||e.target.tagName!=="INPUT")return;e.preventDefault();
+  const all=[...document.querySelectorAll("#view input[data-k]")];const i=all.indexOf(e.target);
+  if(i<all.length-1)all[i+1].focus();else check();});
+render();
+</script>
+</body>
+</html>
